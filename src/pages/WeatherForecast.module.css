@@ -1,0 +1,21 @@
+.mainContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+.weatherInfo {
+  text-align: left;
+}
+.weatherImg {
+  text-align: right;
+}
+
+.temp {
+  font-size: 32px;
+  font-weight: 600;
+}
+.date {
+  font-size: 20px;
+}
