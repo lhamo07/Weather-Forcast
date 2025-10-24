@@ -20,9 +20,7 @@ const FiveDayForecast = ({ city }) => {
         }
         return false;
       });
-      setForecastList(filteredDays.slice(1, 7)); // Limit to 5 days
-
-      console.log(filteredDays);
+      setForecastList(filteredDays.slice(1, 7));
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +45,7 @@ const FiveDayForecast = ({ city }) => {
             <img
               className={style.icon}
               src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
-              alt={forecast.weather.description}
+              alt={"Weather icon"}
             />
             <p className={style.temp}>
               {(((forecast.main.temp - 273.15) * 9) / 5 + 32).toFixed(0)}°F

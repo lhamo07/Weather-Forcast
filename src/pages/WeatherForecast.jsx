@@ -5,7 +5,6 @@ const WeatherForecast = () => {
   return (
     <div className={style.mainContainer}>
       <CurrentWeather />
-      <WeatherShortcut />
     </div>
   );
 };

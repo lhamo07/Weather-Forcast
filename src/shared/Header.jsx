@@ -7,7 +7,6 @@ const Header = () => {
   return (
     <header className={style.header}>
       <nav className={style.navbar}>
-        {/* Left: Logo */}
         <div className={style.logoSection}>
           <NavLink to="/">
             <img src={Logo} alt="Logo" className={style.logo} />
@@ -15,7 +14,6 @@ const Header = () => {
           <h1 className={style.title}>WeatherApp</h1>
         </div>
 
-        {/* Center: Links */}
         <ul className={style.navLinks}>
           <li>
             <NavLink
@@ -35,7 +33,6 @@ const Header = () => {
           </li>
         </ul>
 
-        {/* Right: Quick Access Icon */}
         <div className={style.iconSection}>
           <NavLink to="/quick-access-weather" title="Quick Access">
             <img src={history} alt="Quick Access" className={style.icon} />

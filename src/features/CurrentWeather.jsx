@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TextInputWithLabel from "../shared/TextInputWithLabel";
 import style from "./CurrentWeather.module.css";
 import FiveDayForcast from "./FiveDayForecast";
+import { v4 as uuidv4 } from "uuid";
 
 const CurrentWeather = () => {
   const [city, setCity] = useState("New York");
@@ -12,6 +13,7 @@ const CurrentWeather = () => {
   const [humidity, setHumidity] = useState("");
   const [feelsLike, setFeelsLike] = useState("");
   const [loading, setLoading] = useState(false);
+
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${
     import.meta.env.VITE_API_KEY
   }`;
@@ -24,7 +26,11 @@ const CurrentWeather = () => {
       const res = await fetch(url);
       const data = await res.json();
       setLoading(false);
-
+      if (!res.ok) {
+        alert(data.message);
+        setLoading(false);
+        return;
+      }
       const dateTime = new Date(data.dt * 1000);
       setDate(dateTime.toDateString());
       setTemp((((data.main.temp - 273.15) * 9) / 5 + 32).toFixed(0));
@@ -34,7 +40,19 @@ const CurrentWeather = () => {
       );
       setHumidity(data.main.humidity);
       setFeelsLike((((data.main.feels_like - 273.15) * 9) / 5 + 32).toFixed(0));
-      localStorage.setItem("weatherData", JSON.stringify(data));
+
+      const cityData = {
+        id: uuidv4(),
+        name: data.name,
+        temp: data.main.temp,
+        weatherMain: data.weather[0].main,
+        icon: data.weather[0].icon,
+        timestamp: data.dt,
+      };
+      const storedHistory =
+        JSON.parse(localStorage.getItem("weatherHistory")) || [];
+      const newHistory = [...storedHistory, cityData];
+      localStorage.setItem("weatherHistory", JSON.stringify(newHistory));
     } catch (error) {
       setLoading(false);
       console.log(error);
