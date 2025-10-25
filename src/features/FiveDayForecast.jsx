@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import style from "./FiveDayForecast.module.css";
 const FiveDayForecast = ({ city }) => {
   const [forecastList, setForecastList] = useState([]);
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${
     import.meta.env.VITE_API_KEY
   }`;
-  const getFiveDayForecast = async () => {
+  const getFiveDayForecast = useCallback(async () => {
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -20,16 +20,14 @@ const FiveDayForecast = ({ city }) => {
         }
         return false;
       });
-      setForecastList(filteredDays.slice(1, 7)); // Limit to 5 days
-
-      console.log(filteredDays);
+      setForecastList(filteredDays.slice(1, 7));
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [city]);
   useEffect(() => {
     getFiveDayForecast();
-  }, []);
+  }, [getFiveDayForecast]);
 
   return (
     <div className={style.forecastContainer}>
@@ -47,7 +45,7 @@ const FiveDayForecast = ({ city }) => {
             <img
               className={style.icon}
               src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
-              alt={forecast.weather.description}
+              alt={"Weather icon"}
             />
             <p className={style.temp}>
               {(((forecast.main.temp - 273.15) * 9) / 5 + 32).toFixed(0)}°F

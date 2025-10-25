@@ -12,7 +12,6 @@ function App() {
       <Routes>
         <Route path="/" element={<WeatherForecast />} />
         <Route path="/about" element={<About />} />
-
         <Route path="/*" element={<NotFound />} />
         <Route path="/quick-access-weather" element={<WeatherShortcut />} />
       </Routes>
