@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import style from "./FiveDayForecast.module.css";
 const FiveDayForecast = ({ city }) => {
   const [forecastList, setForecastList] = useState([]);
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${
     import.meta.env.VITE_API_KEY
   }`;
-  const getFiveDayForecast = async () => {
+  const getFiveDayForecast = useCallback(async () => {
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -24,10 +24,10 @@ const FiveDayForecast = ({ city }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [city]);
   useEffect(() => {
     getFiveDayForecast();
-  }, []);
+  }, [getFiveDayForecast]);
 
   return (
     <div className={style.forecastContainer}>

@@ -34,7 +34,7 @@ const Header = () => {
         </ul>
 
         <div className={style.iconSection}>
-          <NavLink to="/quick-access-weather" title="Quick Access">
+          <NavLink to="/quick-access-weather" title="Weather History">
             <img src={history} alt="Quick Access" className={style.icon} />
           </NavLink>
         </div>

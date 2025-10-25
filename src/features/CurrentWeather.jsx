@@ -41,7 +41,7 @@ const CurrentWeather = () => {
       setHumidity(data.main.humidity);
       setFeelsLike((((data.main.feels_like - 273.15) * 9) / 5 + 32).toFixed(0));
 
-      const cityData = {
+      const cityWeatherData = {
         id: uuidv4(),
         name: data.name,
         temp: data.main.temp,
@@ -51,7 +51,7 @@ const CurrentWeather = () => {
       };
       const storedHistory =
         JSON.parse(localStorage.getItem("weatherHistory")) || [];
-      const newHistory = [...storedHistory, cityData];
+      const newHistory = [...storedHistory, cityWeatherData];
       localStorage.setItem("weatherHistory", JSON.stringify(newHistory));
     } catch (error) {
       setLoading(false);
